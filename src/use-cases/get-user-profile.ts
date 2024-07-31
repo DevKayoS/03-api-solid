@@ -1,7 +1,6 @@
 import { usersRepository } from '@/repositories/users-repository'
-import { InvalidCredentialsError } from './errors/invalid-credentials-error'
-import { compare } from 'bcryptjs'
 import { User } from '@prisma/client'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface GetUserProfileUseCaseRequest {
   userId: string
@@ -18,16 +17,10 @@ export class GetUserProfileUseCase {
     userId,
   }: GetUserProfileUseCaseRequest): Promise<GetUserProfileUseCaseResponse> {
     // buscar o usuario no banco pelo email
-    const user = await this.usersRepository.findByEmail(email)
+    const user = await this.usersRepository.findById(userId)
 
     if (!user) {
-      throw new InvalidCredentialsError()
-    }
-    // compara se a senha salva no banco bate com a senha do param
-    const doesPasswordMatches = await compare(password, user.password_hash)
-
-    if (!doesPasswordMatches) {
-      throw new InvalidCredentialsError()
+      throw new ResourceNotFoundError()
     }
 
     return {
