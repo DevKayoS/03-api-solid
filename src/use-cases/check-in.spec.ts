@@ -3,6 +3,7 @@ import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-c
 import { CheckInUseCase } from './check-in'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { Decimal } from '@prisma/client/runtime/library'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymsRepository
@@ -19,8 +20,8 @@ describe('Check in Use Case', () => {
       title: 'Typescript Gym',
       description: '',
       phone: '',
-      latitude: new Decimal(0),
-      longitude: new Decimal(0),
+      latitude: new Decimal(-23.6525394),
+      longitude: new Decimal(-46.5369877),
     })
 
     // using fake timer
@@ -78,5 +79,26 @@ describe('Check in Use Case', () => {
     })
 
     expect(checkIn.id).toEqual(expect.any(String))
+  })
+
+  it('should not be able to check in on distant gym', async () => {
+
+    gymsRepository.items.push({
+      id: 'gym-02',
+      title: 'Typescript Gym',
+      description: '',
+      phone: '',
+      latitude: new Decimal(-23.4318888),
+      longitude: new Decimal(-46.3407531),
+    })
+
+    await expect(()=>
+      sut.execute({
+      userId: 'user-01',
+      gymId: 'gym-02',
+      userLatitude: -23.6525394,
+      userLongitude: -46.5369877,
+    })
+  ).rejects.toBeInstanceOf(Error)
   })
 })
