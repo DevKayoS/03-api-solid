@@ -1,5 +1,5 @@
 export class MaxDistanceError extends Error {
-  constructor(){
+  constructor() {
     super('Max distance reached')
   }
 }

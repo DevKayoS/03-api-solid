@@ -27,7 +27,7 @@ export class CheckInUseCase {
     userId,
     gymId,
     userLatitude,
-    userLongitude
+    userLongitude,
   }: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
     // pegando a academia por Id
     const gym = await this.gymsRepository.findById(gymId)
@@ -37,12 +37,15 @@ export class CheckInUseCase {
     }
     // calculando distancia
     const distance = getDistanceBetweenCoordinates(
-      {latitude: userLatitude, longitude: userLongitude}, 
-      {latitude: gym.latitude.toNumber(), longitude: gym.longitude.toNumber()}
+      { latitude: userLatitude, longitude: userLongitude },
+      {
+        latitude: gym.latitude.toNumber(),
+        longitude: gym.longitude.toNumber(),
+      },
     )
     const MAX_DISTANCE_IN_KILOMETERS = 0.1
 
-    if (distance > MAX_DISTANCE_IN_KILOMETERS){
+    if (distance > MAX_DISTANCE_IN_KILOMETERS) {
       throw new MaxDistanceError()
     }
 

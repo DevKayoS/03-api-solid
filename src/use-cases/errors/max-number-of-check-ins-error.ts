@@ -1,5 +1,5 @@
 export class MaxNumberOfCheckInsError extends Error {
-  constructor(){
+  constructor() {
     super('Max number of check-ins reached')
   }
 }
