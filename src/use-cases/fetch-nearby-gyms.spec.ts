@@ -36,24 +36,4 @@ describe('Featch Nearby Gyms Use Case', () => {
     expect(gyms).toHaveLength(1)
     expect(gyms).toEqual([expect.objectContaining({ title: 'near gym' })])
   })
-  it.skip('should be able to fetch paginated gyms search', async () => {
-    for (let i = 1; i <= 22; i++) {
-      await gymsRepository.create({
-        title: `Typescript gym ${i}`,
-        description: null,
-        phone: null,
-        latitude: -23.6525394,
-        longitude: -46.5369877,
-      })
-    }
-    const { gyms } = await sut.execute({
-      query: 'Typescript',
-      page: 2,
-    })
-    expect(gyms).toHaveLength(2)
-    expect(gyms).toEqual([
-      expect.objectContaining({ title: 'Typescript gym 21' }),
-      expect.objectContaining({ title: 'Typescript gym 22' }),
-    ])
-  })
 })
