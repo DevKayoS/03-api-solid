@@ -15,9 +15,7 @@ export class GetUserMetricsUseCase {
   async execute({
     userId,
   }: GetUserMetricsRequest): Promise<GetUserMetricsesponse> {
-    const checkInsCount = await this.checkInsRepository.countByUserId(
-      userId,
-    )
+    const checkInsCount = await this.checkInsRepository.countByUserId(userId)
 
     return {
       checkInsCount,

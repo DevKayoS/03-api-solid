@@ -3,6 +3,7 @@ export interface Coordinate {
   longitude: number
 }
 
+// retorna em KM
 export function getDistanceBetweenCoordinates(
   from: Coordinate,
   to: Coordinate,
