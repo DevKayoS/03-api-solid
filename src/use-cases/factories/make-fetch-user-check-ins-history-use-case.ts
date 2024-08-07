@@ -3,7 +3,9 @@ import { PrismaCheckInRepository } from '@/repositories/prisma/prisma-check-in-r
 
 export function makeFetchUserCheckInsHistoryUseCase() {
   const checkInRepository = new PrismaCheckInRepository()
-  const fetchUserCheckInsHistoryUseCase = new FetchUserCheckInsHistoryUseCase(checkInRepository)
+  const fetchUserCheckInsHistoryUseCase = new FetchUserCheckInsHistoryUseCase(
+    checkInRepository,
+  )
 
   return fetchUserCheckInsHistoryUseCase
 }
