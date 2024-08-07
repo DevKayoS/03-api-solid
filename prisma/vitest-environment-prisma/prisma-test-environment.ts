@@ -1,14 +1,18 @@
 import { Environment } from "vitest";
 
-export default <Environment>{
-  name: "prisma",
+const environment: Environment = {
+  name: 'prisma',
   async setup() {
-    console.log('executou');
+    console.log("setup");
+    // Código adicional de configuração pode ser necessário aqui.
     return {
-      teardown() { }
+      async teardown() {
+        console.log("teardown");
+        // Código adicional para desmontar o ambiente pode ser necessário aqui.
+      },
     };
- 
-  }
+  },
+  transformMode: "web"
+};
 
-  
-}
+export default environment;
