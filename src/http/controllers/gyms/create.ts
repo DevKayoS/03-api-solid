@@ -1,7 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { UserAlreadyExistsError } from '@/use-cases/errors/user-already-existis'
-import { makeRegisterUseCase } from '@/use-cases/factories/make-register-use-case'
 import { makeCreateGymUseCase } from '@/use-cases/factories/make-create-gym-use-case'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
@@ -25,7 +23,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   await createGymUseCase.execute({
     title,
     description,
-    phone,
+    phone, 
     latitude,
     longitude,
   })
