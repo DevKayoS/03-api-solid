@@ -23,7 +23,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
   await createGymUseCase.execute({
     title,
     description,
-    phone,
+    phone, 
     latitude,
     longitude,
   })
