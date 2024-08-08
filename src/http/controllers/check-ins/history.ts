@@ -4,19 +4,20 @@ import { z } from 'zod'
 
 export async function history(request: FastifyRequest, reply: FastifyReply) {
   const checkInsHistoryQuerySchema = z.object({
-    page: z.coerce.number().min(1).default(1)
+    page: z.coerce.number().min(1).default(1),
   })
 
-  const {  page } = checkInsHistoryQuerySchema.parse(request.query)
+  const { page } = checkInsHistoryQuerySchema.parse(request.query)
 
-  const fetchUserCheckInsHistoryGymsUseCase = makeFetchUserCheckInsHistoryUseCase()
+  const fetchUserCheckInsHistoryGymsUseCase =
+    makeFetchUserCheckInsHistoryUseCase()
 
-  const {checkIns} = await fetchUserCheckInsHistoryGymsUseCase.execute({
+  const { checkIns } = await fetchUserCheckInsHistoryGymsUseCase.execute({
     userId: request.user.sub,
-    page
+    page,
   })
 
   return reply.status(200).send({
-    checkIns
+    checkIns,
   })
 }
