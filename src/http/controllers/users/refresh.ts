@@ -10,7 +10,9 @@ export async function refresh(
 
     // jamais colocar info sensiveis
     const token = await reply.jwtSign(
-      {},
+      {
+        role: request.user.role
+      },
       {
         sign: {
           sub: request.user.sub,
@@ -18,7 +20,7 @@ export async function refresh(
       },   
     )
     const refreshToken = await reply.jwtSign(
-      {},
+      { role: request.user.role},
       {
         sign: {
           sub: request.user.sub,

@@ -21,7 +21,9 @@ export async function authenticate(
 
     // jamais colocar info sensiveis
     const token = await reply.jwtSign(
-      {},
+      {
+        role: user.role
+      },
       {
         sign: {
           sub: user.id,
@@ -29,8 +31,10 @@ export async function authenticate(
       },   
     )
     const refreshToken = await reply.jwtSign(
-      {},
       {
+        role: user.role
+      },
+      { 
         sign: {
           sub: user.id,
           expiresIn: '7d' // o usuarios so vai perder o login se ele passar 7 dias sem logar na maquina
