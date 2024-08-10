@@ -5,5 +5,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@fastify/cookie": "^9.3.1"
+  }
 }
