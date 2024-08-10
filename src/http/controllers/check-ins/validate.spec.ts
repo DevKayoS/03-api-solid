@@ -4,14 +4,14 @@ import { app } from '@/app'
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
 import { prisma } from '@/lib/prisma'
 
-describe('Create check-in (e2e)', () => {
+describe('Validate check-in (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
   afterAll(async () => {
     await app.close()
   })
-  it('should be able to create a check-in', async () => {
+  it('should be able to validate a check-in', async () => {
     const { token } = await createAndAuthenticateUser(app)
 
     const user = await prisma.user.findFirstOrThrow()
@@ -26,7 +26,7 @@ describe('Create check-in (e2e)', () => {
       },
     })
 
-    let checkIn = await prisma.checkIn.createMany({
+    let checkIn = await prisma.checkIn.create({
       data: {
         gym_id: gym.id,
         user_id: user.id,
